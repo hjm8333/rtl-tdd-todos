@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 
@@ -15,10 +15,34 @@ const TodoApp = () => {
             done: true,
         },
     ]);
+    const nextId = useRef(3); //새로 추가 할 항목에서 사용할 id
+    const onInsert = useCallback(
+        (text) => {
+            setTodos(
+                todos.concat({
+                    id: nextId.current,
+                    text,
+                    done: false,
+                })
+            );
+            nextId.current += 1;
+        },
+        [todos]
+    );
+    const onToggle = useCallback(
+        (id) => {
+            setTodos(
+                todos.map((todo) =>
+                    todo.id === id ? { ...todo, done: !todo.done } : todo
+                )
+            );
+        },
+        [todos]
+    );
     return (
         <div>
-            <TodoForm data-testid='helloworld' />
-            <TodoList todos={[todos]} />
+            <TodoForm data-testid='helloworld' onInsert={onInsert} />
+            <TodoList todos={todos} onToggle={onToggle} />
         </div>
     );
 };
