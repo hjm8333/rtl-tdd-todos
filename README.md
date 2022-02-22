@@ -2,9 +2,48 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Docker Devl
+
+```
+docker run -itd --name rtl-tdd-todos -p 3000:3000 node:16.14.0-bullseye
+docker commit rtl-tdd-todos hjm8333/ksa:rtl-tdd-todos
+docker push hjm8333/ksa:rtl-tdd-todos
+
+```
+
+## Docker Delivery
+
+```
+docker container stop rtl-tdd-todos
+docker pull hjm8333/ksa:rtl-tdd-todos
+docker run -itd --name rtl-tdd-todos -p 3000:3000 hjm8333/ksa:rtl-tdd-todos
+
+```
+
+## Git config
+
+```
+git init
+git config --global user.name 'hjm8333'
+git config --global user.email 'hjm8333@naver.com'
+git branch -M main
+
+```
+
+## Git remote config
+
+ID, PW는 윈도우즈 자격증명관리에 등록을 했다.
+
+```
+git remote add origin https://github.com/hjm8333/rtl-tdd-todos.git (Github repository HTTPS URL)
+git push -u origin main
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npx create-react-app rtl-tdd-todos`
 
 ### `npm start`
 
